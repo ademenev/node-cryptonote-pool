@@ -1,3 +1,5 @@
+CLEANING THINGS UP: use promises, get rid of globals, more readable code etc.
+
 node-cryptonote-pool
 ====================
 
