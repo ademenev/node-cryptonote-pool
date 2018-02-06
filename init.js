@@ -2,16 +2,9 @@ var fs = require('fs');
 var cluster = require('cluster');
 var os = require('os');
 
-var redis = require('redis');
-
-
-require('./lib/configReader.js');
-
-require('./lib/logger.js');
-
-
-global.redisClient = redis.createClient(config.redis.port, config.redis.host, {auth_pass: config.redis.auth});
-
+var config = require('./lib/configReader.js');
+var log = require('./lib/logger.js');
+var redisClient = require('./lib/redis-client');
 
 if (cluster.isWorker){
     switch(process.env.workerType){
