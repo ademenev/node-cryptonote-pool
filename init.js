@@ -2,7 +2,7 @@ var fs = require('fs');
 var cluster = require('cluster');
 var os = require('os');
 
-var config = require('./lib/configReader.js');
+var config = require('config');
 var log = require('./lib/logger.js');
 var redisClient = require('./lib/redis-client');
 
