@@ -8,15 +8,15 @@
     "url": "https://github.com/zone117x/node-cryptonote-pool.git"
   },
   "dependencies": {
-    "async": "1.5.2",
     "base58-native": "0.1.4",
     "bignum": "0.12.5",
+    "bluebird": "^3.5.1",
     "cli-color": "1.1.0",
     "config": "^1.29.4",
     "cryptonote-util": "git://github.com/Snipa22/node-cryptonote-util#xmr-Nan-2.0",
     "dateformat": "1.0.12",
-    "multi-hashing": "git://github.com/ademenev/node-multi-hashing.git",
-    "redis": "0.12.1"
+    "ioredis": "^3.2.2",
+    "node-cryptonight": "git://github.com/ademenev/node-cryptonight"
   },
   "engines": {
     "node": ">=4.2"
