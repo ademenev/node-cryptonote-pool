@@ -5,6 +5,7 @@
     <title></title>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
 
@@ -31,6 +32,7 @@
 
 
         $(function(){
+            window.SOCKET = io('http://localhost:8117');
             getStats();
         });
 
@@ -76,22 +78,17 @@
         function getStats(promptPassword){
 
             var password = docCookies.getItem('password');
-
-
             if (!password || promptPassword)
                 password = prompt('Enter admin password');
 
 
             $('#loading').show();
-            $.ajax({
-                url: api + '/admin_stats',
-                data: {password: password},
-                success: function(data){
+            SOCKET.emit('admin_stats', {password: password}, function(data) {
+                if (!data.error) {
                     docCookies.setItem('password', password, Infinity);
                     $('#loading').hide();
                     renderData(data);
-                },
-                error: function(e){
+                } else {
                     docCookies.removeItem('password');
                     getStats(true);
                 }

@@ -56,9 +56,9 @@
 
     currentPage = {
         destroy: function(){
-            if (xhrGetBlocks) xhrGetBlocks.abort();
         },
         update: function(){
+            if (!lastStats) return;
             updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
             updateText('blocksMaturityCount', lastStats.config.depth.toString());
             renderBlocks(lastStats.pool.blocks);
@@ -67,20 +67,11 @@
 
 
 
-    var xhrGetBlocks;
     $('#loadMoreBlocks').click(function(){
-        if (xhrGetBlocks) xhrGetBlocks.abort();
-        xhrGetBlocks = $.ajax({
-            url: api + '/get_blocks',
-            data: {
-                height: $('#blocks_rows').children().last().data('height')
-            },
-            dataType: 'json',
-            cache: 'false',
-            success: function(data){
-                renderBlocks(data);
-            }
-        });
+        var request = {
+            height: $('#blocks_rows').children().last().data('height')
+        };
+        SOCKET.emit('blocks', request, renderBlocks);
     });
 
 

@@ -32,7 +32,7 @@ body {
 .stats > div > span:first-of-type{
     font-weight: bold;
 }
-#stats_updated{
+#stats_updated, #connection_lost{
     opacity: 0;
     float: right;
     margin-left: 30px;
@@ -40,6 +40,30 @@ body {
     line-height: 47px;
     font-size: 0.9em;
 }
+
+#connection_lost {
+    opacity: 1;
+    color: green;
+}
+
+
+#connection_lost.active {
+    color: red;
+}
+
+#connection_lost  .fa-check {
+    display: inline-block;
+}
+#connection_lost  .fa-times {
+    display: none;
+}
+#connection_lost.active  .fa-check {
+    display: none;
+}
+#connection_lost.active  .fa-times {
+    display: inline-block;
+}
+
 
 footer{
     position: fixed;

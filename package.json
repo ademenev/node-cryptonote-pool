@@ -16,7 +16,8 @@
     "cryptonote-util": "git://github.com/Snipa22/node-cryptonote-util#xmr-Nan-2.0",
     "dateformat": "1.0.12",
     "ioredis": "^3.2.2",
-    "node-cryptonight": "git://github.com/ademenev/node-cryptonight"
+    "node-cryptonight": "git://github.com/ademenev/node-cryptonight",
+    "socket.io": "^2.0.4"
   },
   "engines": {
     "node": ">=4.2"

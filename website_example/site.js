@@ -144,26 +144,9 @@ function pulseLiveUpdate(){
     }, 500);
 }
 
-window.onhashchange = function(){
+window.onhashchange = function() {
     routePage();
 };
-
-
-function fetchLiveStats() {
-    $.ajax({
-        url: api + '/live_stats',
-        dataType: 'json',
-        cache: 'false'
-    }).done(function(data){
-        pulseLiveUpdate();
-        lastStats = data;
-        updateIndex();
-        currentPage.update();
-    }).always(function () {
-        fetchLiveStats();
-    });
-}
-
 
 var xhrPageLoading;
 function routePage(loadedCallback) {
@@ -187,6 +170,8 @@ function routePage(loadedCallback) {
         success: function (data) {
             $('#loading').hide();
             $('#page').show().html(data);
+            if (currentPage.init)
+                currentPage.init();
             currentPage.update();
             if (loadedCallback) loadedCallback();
         }
@@ -199,9 +184,23 @@ function updateIndex(){
 }
 
 $(function(){
-    $.get(api + '/stats', function(data){
-        lastStats = data;
-        updateIndex();
-        routePage(fetchLiveStats);
+    window.SOCKET = io('http://localhost:8117');
+    window.SOCKET.on('connect', function() {
+        $('#connection_lost').removeClass('active');
+    });
+    window.SOCKET.on('disconnect', function() {
+        $('#connection_lost').addClass('active');
+    });
+    window.SOCKET.on('reconnect', function() {
+        $('#connection_lost').removeClass('active');
+    });
+    routePage(function() {
+        window.SOCKET.on('stats', function(data) {
+            lastStats = data;
+            pulseLiveUpdate();
+            lastStats = data;
+            updateIndex();
+            if (currentPage) currentPage.update();
+        });
     });
 });

@@ -52,9 +52,9 @@
 <script>
     currentPage = {
         destroy: function(){
-            if (xhrGetPayments) xhrGetPayments.abort();
         },
         update: function(){
+            if (!lastStats) return;
             updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
             updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
             updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 3));
@@ -64,20 +64,11 @@
     };
 
 
-    var xhrGetPayments;
     $('#loadMorePayments').click(function(){
-        if (xhrGetPayments) xhrGetPayments.abort();
-        xhrGetPayments = $.ajax({
-            url: api + '/get_payments',
-            data: {
-                time: $('#payments_rows').children().last().data('time')
-            },
-            dataType: 'json',
-            cache: 'false',
-            success: function(data){
-                renderPayments(data);
-            }
-        });
+        var request = {
+            time: $('#payments_rows').children().last().data('time')
+        };
+        SOCKET.emit('payments', request, renderPayments);
     });
 
 
