@@ -152,7 +152,11 @@ module.exports = {
         depth: 60,
         poolFee: 1.8, //1.8% pool fee (2% total fee total including donations)
         devDonation: 0.1, //0.1% donation to send to pool dev - only works with Monero
-        coreDevDonation: 0.1 //0.1% donation to send to core devs - only works with Monero
+        coreDevDonation: 0.1, //0.1% donation to send to core devs - only works with Monero
+
+        // Limit number of block to unlock in one pass. Zero for no limit.
+        // Use if you get timeout errors in unlocker.
+        batchSize: 0
     },
 
     /* AJAX API used for front-end website. */
