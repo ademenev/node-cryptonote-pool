@@ -47,38 +47,3 @@
 <p class="text-center">
     <button type="button" class="btn btn-default" id="loadMorePayments">Load More</button>
 </p>
-
-
-<script>
-    currentPage = {
-        destroy: function(){
-        },
-        update: function(){
-            if (!lastStats) return;
-            updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
-            updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
-            updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 3));
-            updateText('paymentsDenomination', getReadableCoins(lastStats.config.denominationUnit, 3));
-            renderPayments(lastStats.pool.payments);
-        }
-    };
-
-
-    $('#loadMorePayments').click(function(){
-        var request = {
-            time: $('#payments_rows').children().last().data('time')
-        };
-        SOCKET.emit('payments', request, renderPayments);
-    });
-
-
-    function getPaymentCells(payment){
-        return '<td>' + formatDate(payment.time) + '</td>' +
-                '<td>' + formatPaymentLink(payment.hash) + '</td>' +
-                '<td>' + getReadableCoins(payment.amount, 4, true) + '</td>' +
-                '<td>' + getReadableCoins(payment.fee, 4, true) + '</td>' +
-                '<td>' + payment.mixin + '</td>' +
-                '<td>' + payment.recipients + '</td>';
-    }
-
-</script>
