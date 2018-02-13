@@ -1,3 +1,31 @@
+<template>
+<div>
+  <Menu></Menu>
+
+    <div class="container">
+        <slot></slot>
+    </div>
+
+    <footer>
+        <div class="text-muted">
+            Powered by <a target="_blank" href="//github.com/ademenev/node-cryptonote-pool"><i class="fa fa-github"></i> node-cryptonote-pool</a>
+            <span id="poolVersion"></span>
+            created by Matthew Little & open sourced under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a>,
+            improved by Andrey Demenev
+        </div>
+    </footer>
+</div>
+</template>
+
+<script>
+import Menu from './Menu.vue';
+
+export default {
+  components: {Menu}
+}
+</script>
+
+<style>
 #coinName{
     text-transform: capitalize;
 }
@@ -69,10 +97,11 @@ footer{
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #f5f5f5;
+    background-color: #444;
 }
 
 footer > div{
     margin: 10px auto;
     text-align: center;
 }
+</style>

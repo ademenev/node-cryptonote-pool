@@ -1,6 +1,10 @@
 {
   "name": "cryptonote-pool",
   "version": "0.0.1",
+  "scripts": {
+    "build-site": "webpack --config webpack.prod.js",
+    "watch": "webpack --config webpack.dev.js --watch"
+  },
   "license": "GPL-2.0",
   "author": "Matthew Little",
   "repository": {
@@ -21,5 +25,22 @@
   },
   "engines": {
     "node": ">=4.2"
+  },
+  "devDependencies": {
+    "ajv": "^6.1.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.9",
+    "file-loader": "^1.1.6",
+    "moment": "^2.20.1",
+    "style-loader": "^0.20.1",
+    "url-loader": "^0.6.2",
+    "vue": "^2.5.13",
+    "vue-loader": "^14.1.1",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^3.11.0",
+    "webpack-merge": "^4.1.1"
   }
 }
